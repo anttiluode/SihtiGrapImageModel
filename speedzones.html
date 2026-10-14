@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sihti | Phase-Wake Laboratory</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.phase-shell{max-width:1190px;margin:auto;padding:0 22px}
+.phase-nav{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:23px 0;border-bottom:1px solid #31465e;flex-wrap:wrap}
+.phase-nav a{color:#83e8dd}
+.phase-heading{padding:65px 0 34px}
+.phase-heading h1{max-width:860px;font-size:clamp(39px,5.6vw,75px);line-height:1.05;margin:16px 0 22px}
+.phase-heading p{max-width:830px;font-size:18px;color:#abbed4}
+.phase-equation{font:17px/1.6 ui-monospace,Consolas,monospace;background:#101f32;padding:19px;border:1px solid #29455d;border-radius:9px;overflow-x:auto;color:#9bf8e1}
+.lab-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px}
+.lab-options{padding:22px;border:1px solid #344961;border-radius:10px;background:#102136;align-self:start}
+.lab-options label{display:block;color:#c6d3e3;margin:15px 0 5px;font-size:12px}
+.lab-options select,.lab-options input[type=range]{width:100%}
+.lab-options select{padding:9px;background:#132b42;color:#fff;border:1px solid #4e6e84;border-radius:6px}
+.lab-options input{accent-color:#6cf0d9}
+.lab-options input[type=file]{width:100%;color:#adc3d4}
+.lab-options button{margin-top:22px;padding:10px 13px;width:100%;cursor:pointer;border:0;border-radius:5px;background:#6cf0d9;color:#092334;font-weight:700}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.phase-card{min-width:0;border-radius:10px;border:1px solid #344961;padding:15px;background:#112238}
+.phase-card h3{font-size:12px;letter-spacing:.07em;color:#9af2df;text-transform:uppercase;margin:0}
+.phase-card p{font-size:11px;color:#a5b9ce;margin-bottom:0}
+.phase-card canvas{display:block;width:100%;aspect-ratio:1;image-rendering:pixelated;margin:13px 0;border:1px solid #233c59;border-radius:5px}
+.meter-panels{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:16px}
+.meter-panel{background:#112238;border:1px solid #344961;border-radius:9px;padding:20px}
+.meter-panel span{display:block;font-size:12px;color:#9eb4ca}
+.meter-panel strong{display:block;font-size:25px;font-variant-numeric:tabular-nums;margin-top:7px}
+.phase-notes{max-width:900px;padding:48px 0 80px;color:#b9c6db}
+.phase-notes h2{color:white;font-size:29px}
+.phase-notes a{color:#6cf0d9}
+.phase-notes li{margin:9px 0}
+.caption{font-size:11px;color:#acc0d4}
+@media(max-width:1000px){.lab-layout{grid-template-columns:1fr}.lab-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}.lab-options h3,.lab-options button{grid-column:1/-1}}@media(max-width:690px){.phases{grid-template-columns:repeat(2,minmax(0,1fr))}.meter-panels{grid-template-columns:1fr}.phase-heading{padding-top:35px}.lab-options{display:block}.phase-equation{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="phase-shell">
+<div class="phase-nav"><strong>SIHTI / PHASE-WAKE V2</strong><div><a href="index.html">← V1 laboratory</a> · <a href="https://github.com/anttiluode/SihtiGrapImageModel">GitHub ↗</a></div></div>
+<section class="phase-heading">
+<div class="eyebrow">64-BYTE DELAY MAP / CONTROLLED ANALYTIC DEMO</div>
+<h1>Question the medium.<br><em>Read the phase wake.</em></h1>
+<p>Instead of damping amplitude, an image writes a coarse field of local phase delays. A uniform complex signal passes through two operations in opposite orders. Their difference exposes changes in the phase map.</p>
+<div class="phase-equation">[Sₓ, Uτ]1 = shiftₓ(eⁱᵗᵃᵘ) − eⁱᵗᵃᵘ</div>
+</section>
+<div class="lab-layout">
+<aside class="lab-options">
+<h3>EDIT THE DELAY MEDIUM</h3>
+<label for="choice">Scene</label>
+<select id="choice"><option value="marked">Two marks</option><option value="ring">Slow ring</option><option value="uniform">Uniform delay (null test)</option><option value="noise">Random phase medium</option></select>
+<label for="gain">Speed-zone phase contrast: <output id="gainOut">70%</output></label>
+<input id="gain" type="range" min="0" max="100" value="70">
+<label for="frequency">Probe frequency multiplier: <output id="freqOut">1.00×</output></label>
+<input id="frequency" type="range" min="25" max="200" value="100">
+<label for="mark">Mark polarity</label>
+<select id="mark"><option value="opposite">Opposite red/blue</option><option value="same">Matching red/red</option></select>
+<button type="button" id="reroll">New random seed ↻</button>
+<label for="file">Upload an image (browser only)</label>
+<input id="file" type="file" accept="image/*">
+<p class="caption" id="imageInfo">The analytical writer is not the trained Python writer.</p>
+</aside>
+<div class="phases">
+<div class="phase-card"><h3>1 / Observation</h3><canvas id="source" width="32" height="32"></canvas><p>32×32 RGB pixels; 3,072 bytes raw.</p></div>
+<div class="phase-card"><h3>2 / Stored delay τ</h3><canvas id="phase" width="8" height="8"></canvas><p>8×8 quantized phase map; 64 bytes.</p></div>
+<div class="phase-card"><h3>3 / Phase signal eⁱτ</h3><canvas id="complex" width="8" height="8"></canvas><p>Hue is phase, not amplitude.</p></div>
+<div class="phase-card"><h3>4 / Horizontal wake</h3><canvas id="wakeX" width="8" height="8"></canvas><p>Magnitude of [Sₓ,Uτ] applied to a uniform query.</p></div>
+<div class="phase-card"><h3>5 / Vertical wake</h3><canvas id="wakeY" width="8" height="8"></canvas><p>Magnitude of [Sᵧ,Uτ] applied to the same query.</p></div>
+<div class="phase-card"><h3>6 / Intensity-only</h3><canvas id="blind" width="8" height="8"></canvas><p>Pure phase has unit intensity everywhere. A deliberately blind control.</p></div>
+</div>
+</div>
+<div class="meter-panels">
+<div class="meter-panel"><span>Combined wake RMS</span><strong id="wakeValue">—</strong></div>
+<div class="meter-panel"><span>Energy after 20 phase steps</span><strong id="unitaryValue">—</strong></div>
+<div class="meter-panel"><span>Energy after 20 lossy steps</span><strong id="lossyValue">—</strong></div>
+</div>
+<section class="phase-notes">
+<h2>What this tests—and what it doesn't</h2>
+<p>The commutator reveals spatial variation in a phase-delay map. A uniformly delayed field produces exactly zero wake under periodic boundary conditions; a localized delay changes neighboring phases and gives a nonzero response. Pure phase multiplication and periodic shifts preserve energy, whereas attenuating transport loses it.</p>
+<p>Those are <strong>mathematical controls, not trained vision-model wins</strong>. Directly reading the phase map or its finite differences may solve a task just as well. The Python v2 benchmark makes those comparisons on held-out synthetic scenes, including an equally sized <em>amplitude-coded</em> baseline.</p>
+<p>A true eikonal arrival-time gradient is not necessarily a persistent physical wake after a pulse disappears. We simulate a phase mask under prescribed discrete operations, not refracted rays, membrane electrophysiology or lipid biochemistry.</p>
+<p><a href="SPEEDZONE_PROTOCOL.md">Read the frozen research protocol ↗</a> · <a href="https://github.com/anttiluode/SihtiGrapImageModel/blob/main/train_speedzones.py">Training source ↗</a></p>
+</section>
+</div>
+<script src="phase_lab.js"></script>
+</body>
+</html>
