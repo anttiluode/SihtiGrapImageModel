@@ -1,7 +1,7 @@
 name: Research unit tests
 on:
   push:
-    branches: [main, feature/order-sensitive-visual-memory]
+    branches: [main, feature/order-sensitive-visual-memory, experiment/phase-wake-v2]
   pull_request:
   workflow_dispatch:
 jobs:
@@ -22,6 +22,10 @@ jobs:
       - name: Test
         run: pytest -q
       - name: Check browser JavaScript syntax
-        run: node --check app.js
+        run: |
+          node --check app.js
+          node --check phase_lab.js
+      - name: Phase-wake one-step learning smoke
+        run: python train_speedzones.py --steps 1 --train-count 24 --val-count 16 --test-count 16 --batch-size 8 --device cpu --out /tmp/phase-smoke.json
       - name: One-step end-to-end smoke
         run: python train.py --steps 1 --train-count 24 --val-count 16 --test-count 16 --batch-size 8 --device cpu --out /tmp/smoke.json
