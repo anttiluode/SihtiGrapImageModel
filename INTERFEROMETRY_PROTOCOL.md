@@ -29,7 +29,7 @@ and retains an unknown common rotation. A demodulated subtraction
 `(z1-z2)*conj(z2)` is exactly `z1*conj(z2)-1`,
 equivalent to the ratio up to a translation.
 
-## Four diagnostic readouts at K=2/4/8
+## Five diagnostic readouts at K=2/4/8
 
 - `paired_orders`: Both raw responses, K physical complex readings,
   `K/2` source locations.
@@ -40,6 +40,12 @@ equivalent to the ratio up to a translation.
   rather than fabricated additional observations.
 - `demodulated_difference`: `(z1-z2)*conj(z2)`,
   identical information to the ratio. Not an additional sensor.
+- `direct_matched_sources`: reads exactly the `K/2` launch sites
+  used by paired orders, as direct unit-modulus phases; zero-padded
+  to the common readout shape. **Privileged direct access**, not the
+  same instrument as a fixed port. Tests whether weak learned
+  source locations, rather than a variable reference phase, explain
+  failure of the relative-phase ratio.
 
 Unmodified route arms and strong direct-phase control are rerun under
 the same training protocol to avoid accidental reweighting bias. All
@@ -57,8 +63,9 @@ coordinate and a precommitted route.
 3. Compare test accuracies and cross-entropy for ratio, demodulated
    subtraction, raw subtraction, paired responses and target-addressed
    direct phase for both **independent writers**, K=2/4/8.
-4. If ratio improves only seed 97, report that and examine the sampled
-   local source positions. If ratio surpasses raw pair, attribute that
+4. If ratio improves only seed 97, report that and compare to
+   `direct_matched_sources` (same exact launch coordinates), and examine
+   the sampled local source positions. If ratio surpasses raw pair, attribute that
    to inductive bias or optimization: it is a deterministic function of
    the same paired measurements, so cannot contain more information.
 5. A ratio classifier **need not reach 99%** if the source phase carries
