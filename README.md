@@ -1,3 +1,41 @@
+## Phase-wake v2 — speed-zone experiment (new)
+
+**[Open the phase-wake interactive laboratory](https://anttiluode.github.io/SihtiGrapImageModel/speedzones.html)** · **[Read the frozen v2 protocol](SPEEDZONE_PROTOCOL.md)**
+
+Gemini's proposed speed-zone hypothesis is now an explicitly testable
+**separate v2**; the original v1 and its two seed receipts remain intact.
+
+- Write each **32×32 RGB** image (3,072 uncompressed uint8 bytes)
+  into a single **8×8 uint8 phase-delay map (64 bytes)**.
+- A unitary phase multiplication `Uτ` and periodic spatial shifts
+  `Sx, Sy` define a wake: `[Sx,Uτ]1 = Sx(e^{iτ})−e^{iτ}`.
+- Compare a commutator reader to a **strong paired-order** reader,
+  a signed **phase-gradient** reader, a complex coherent mean,
+  a direct-phase reader, and a monotone **amplitude-code** baseline.
+  Intensity-only is an intentionally blind negative control.
+- Keep one jointly optimized writer and **identically sized classifiers**.
+  Report held-out accuracy, cross-entropy, shuffled-graph and phase-byte
+  corruption controls.
+- An analytic test verifies zero wake for a constant phase map,
+  a nonzero localized wake, and 20-step energy conservation of the
+  unitary transport. It does not demonstrate physical ray focusing,
+  persistent phase wakes in tissue, or myelin memory.
+
+```bash
+pip install -r requirements.txt
+pytest -q
+python train_speedzones.py --steps 500 --seed 41 --device auto --out results/phase_wake_seed41.json --checkpoint checkpoints/phase_wake_seed41.pt
+python train_speedzones.py --steps 500 --seed 97 --device auto --out results/phase_wake_seed97.json --checkpoint checkpoints/phase_wake_seed97.pt
+```
+
+**No trained v2 performance is claimed here.** Better performance than
+intensity-only is tautological for a pure phase signal and is **not**
+evidence that a commutator helps. The meaningful comparisons are
+direct-phase, finite-difference phase-gradient, amplitude-coded memory
+and raw ordered-response readers. See [SPEEDZONE_PROTOCOL.md](SPEEDZONE_PROTOCOL.md).
+
+---
+
 # SihtiGrapImageModel — probing a visual memory
 
 **Interactive experiment:** https://anttiluode.github.io/SihtiGrapImageModel/
