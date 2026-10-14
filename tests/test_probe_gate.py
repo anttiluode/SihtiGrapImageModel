@@ -101,3 +101,21 @@ def test_ratio_and_demodulation_equal_up_to_one_complex_offset():
         assert torch.allclose(d[:,:,1],r[:,:,1],atol=2e-6)
         assert f["interferometric_ratio"].shape==(len(q),2*k)
         assert torch.all(f["interferometric_ratio"][:,k:]==0)
+
+
+def test_direct_matched_sources_are_same_positions_as_interferometry():
+    from probe_gate import path_bank, observed_features
+    bank=path_bank()
+    torch.manual_seed(87)
+    tau=torch.randn(6,1,8,8)*.2
+    q=torch.tensor([0,1,2,3,0,2])
+    for k in (2,4,8):
+        f=observed_features(tau,q,k)
+        count=k//2
+        site=bank["source"][q,:count]
+        expected_phase=torch.gather(tau[:,0].flatten(1),1,site)
+        expected=torch.polar(torch.ones_like(expected_phase),expected_phase)
+        received=f["direct_matched_sources"][:,:k].reshape(len(q),count,2)
+        actual=torch.complex(received[:,:,0],received[:,:,1])
+        assert torch.allclose(actual,expected,atol=1e-6)
+        assert torch.all(f["direct_matched_sources"][:,k:]==0)
