@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sihti · Common-path interferometric readout</title><style>
+:root{color-scheme:dark;font-family:Inter,system-ui,Arial,sans-serif}*{box-sizing:border-box}
+body{margin:0;color:#e9f5ff;background:radial-gradient(circle at 75% 0%,#1a3847,#091825 45%,#07121f 100%);line-height:1.65}
+main{max-width:1100px;margin:0 auto;padding:26px 22px 110px}a{color:#81eed6}nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-bottom:1px solid #334e5e;padding-bottom:20px}
+h1{font-size:clamp(42px,6vw,78px);line-height:1.04;letter-spacing:-.045em;max-width:990px;margin:14px 0 26px}h1 em{color:#86f1de;font-style:normal}
+h2{font-size:27px;letter-spacing:-.02em}h3{font-size:18px}.eyebrow{letter-spacing:.15em;text-transform:uppercase;color:#85d9d2;font-size:12px}
+.intro{font-size:19px;max-width:890px;color:#b4c9db}.equation{overflow-x:auto;font:18px/1.55 ui-monospace,Consolas,monospace;background:#12293a;border:1px solid #385b69;border-radius:8px;padding:19px 24px;margin:25px 0;color:#a4f7dd}
+.panel{background:#102539;border:1px solid #355368;border-radius:12px;padding:25px;margin:23px 0}.panel>h2{margin-top:0}.muted{color:#acc3d5}.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:33px 0}
+.fact{border:1px solid #385469;background:#162d42;padding:17px;border-radius:9px}.fact strong{font-size:28px;display:block}.fact small{color:#b5c6d5}
+.selector{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}.selector button{border:1px solid #547081;background:#1b3449;padding:9px 17px;color:#e5f3f7;cursor:pointer;border-radius:7px}.selector button[aria-pressed=true]{background:#81eed6;color:#082b36;font-weight:700}
+.bar-row{display:grid;grid-template-columns:190px 1fr 72px;align-items:center;gap:12px;margin:14px 0}.bar-frame{height:15px;border-radius:5px;background:#1c3e51;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,#397c9b,#85efce);border-radius:5px}
+.bar-row.secondary .bar-fill{background:linear-gradient(90deg,#5666a3,#909ddd)}.bar-label{font-size:13px}.bar-num{text-align:right;font-variant-numeric:tabular-nums}
+.table-scroller{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px 12px;border-bottom:1px solid #31485b;text-align:left}td:not(:first-child),th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.note{border-left:3px solid #85e9d7;padding:8px 18px;margin:22px 0;background:#163047}.compact{font-size:13px;color:#a8c1d4}
+@media(max-width:680px){.facts{grid-template-columns:1fr}.panel{padding:16px}.bar-row{grid-template-columns:124px 1fr 62px;gap:7px}.bar-label{font-size:11px}.equation{font-size:13px}}
+</style></head><body><main>
+<nav><b>SIHTI / EXPERIMENTAL ARCHIVE</b><span><a href="restricted_ports.html">Frozen v3 port gate</a> · <a href="speedzones.html">Phase-wake v2</a> · <a href="index.html">Home</a></span></nav>
+<header style="margin:58px 0 39px"><div class="eyebrow">V3b / FROZEN INTERFEROMETRY TEST / 14 OCTOBER 2026</div>
+<h1>Cancel the path.<br/><em>What information survives?</em></h1>
+<p class="intro">An exact common-path measurement identity seemed to promise remote access to a learned visual phase memory. The numerical identity holds; its ability to answer questions depends on what the stored endpoint actually encodes.</p>
+<div class="equation">z₁z₂* = exp(i[τ(source) − τ(port)])</div>
+<p class="muted">Both signals traverse the same 12-step sequence of grid positions, in opposite local operator order. The shared intermediate terms cancel in the conjugate product. The remaining phase is relative to the detector—not an absolute source phase.</p>
+</header>
+<div class="facts"><div class="fact"><small>Unchanged stored state</small><strong>64 bytes</strong><small>Frozen independent writers, seeds 41 and 97</small></div>
+<div class="fact"><small>Stationary physical ports</small><strong>2</strong><small>Two complex readings per endpoint ratio</small></div>
+<div class="fact"><small>Exact identity error</small><strong>≈ 10⁻⁶</strong><small>Computed on actual learned checkpoint maps</small></div></div>
+<section class="panel"><h2>Measured classification results</h2>
+<p class="muted">Each checkpoint answers 2,048 held-out questions. Select the number of physical complex-valued sensor readings. The original and new heads use the same architecture, optimization schedule and question labels.</p>
+<div class="selector"><button aria-pressed="true" data-budget="2">2 readings</button><button aria-pressed="false" data-budget="4">4 readings</button><button aria-pressed="false" data-budget="8">8 readings</button></div>
+<p class="compact">Bars show the mean across the two independent writer seeds, and the table below preserves their disagreement.</p>
+<div id="bars"><p>Loading recorded checkpoint measurements…</p></div>
+<h3>Accuracy by frozen writer</h3><div class="table-scroller"><table><thead><tr><th>Readout</th><th>Seed 41</th><th>Seed 97</th><th>Average</th></tr></thead><tbody id="rows"><tr><td colspan="4">Loading JSON…</td></tr></tbody></table></div>
+</section>
+<section class="panel"><h2>What the test actually says</h2><div class="note"><b>Verified algebra. Different learned codes. No universal accuracy improvement.</b></div>
+<p>The conjugate ratio cancels changes in shared intermediate phase values while preserving the difference between source and detector phase. The tests verify that invariant even under deliberately altered intermediate cells.</p>
+<p>But direct access to the <b>same single source location</b> is also highly seed-dependent: at two measurements, the equivalent direct-source sample scores 62.74% for seed 41 and 99.95% for seed 97. Seed 41 simply has much less label information in that particular source site. A fixed endpoint reference also varies across scenes, so a relative phase is not a direct-source reading without calibration.</p>
+<p>Keeping both uncombined measurements can outperform the ratio because their common phase includes other task-relevant learned features. Cancellation removes those features, whether they are clutter or useful signal.</p></section>
+<section class="panel"><h2>The difference between the four comparisons</h2>
+<div class="table-scroller"><table><thead><tr><th>Readout</th><th>What it sees</th><th>How many source locations at K readings?</th></tr></thead><tbody>
+<tr><td>Raw paired orders</td><td>Both complex 12-step responses</td><td>K/2</td></tr>
+<tr><td>Uncorrected subtraction</td><td>z₁ − z₂; retains common-path rotation</td><td>K/2</td></tr>
+<tr><td>Conjugate ratio</td><td>z₁ × conj(z₂); cancels common path</td><td>K/2</td></tr>
+<tr><td>Demodulated subtraction</td><td>(z₁ − z₂) × conj(z₂) = ratio − 1</td><td>K/2</td></tr>
+<tr><td>Direct matched sources</td><td>Phase at exactly the source sites paired waves use</td><td>K/2 (privileged addressable access)</td></tr>
+<tr><td>Direct local phase</td><td>Phase at K source locations</td><td>K (privileged addressable access)</td></tr>
+</tbody></table></div>
+<p class="muted">Reader input dimensions are padded equally where needed. Padding is not an extra measurement. Two paired phase waves traverse the same path but spend two physical shots for one source. Their intermediate cells may carry the label; direct controls have privileged memory access. Equal output measurements do not imply equal computational cost.</p></section>
+<section class="panel"><h2>Evidence and reproducibility</h2><p><a href="results/interferometry/seed41.json">Actual v3b seed41.json</a> · <a href="results/interferometry/seed97.json">Actual v3b seed97.json</a> · <a href="INTERFEROMETRY_PROTOCOL.md">Frozen protocol</a> · <a href="probe_gate.py">Phase probe code</a> · <a href="train_probe_gate.py">Training/evaluation script</a></p><p class="muted">The input images are synthetic static four-mark scenes. These experiments show relative-phase signal processing in an ideal unitary grid with externally chosen routes. They do not demonstrate neural dendritic transport, physical myelin delay control, holographic reconstruction, or a new mathematical theorem.</p></section>
+<footer class="compact">SihtiGrapImageModel · Preserve the failed hypothesis as well as the useful mechanism.</footer>
+</main><script src="interferometry.js"></script></body></html>

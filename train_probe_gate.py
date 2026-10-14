@@ -116,10 +116,40 @@ def run(args):
     train_f,train_y=build_table(frozen.writer,train,device)
     val_f,val_y=build_table(frozen.writer,val,device)
     test_f,test_y=build_table(frozen.writer,test,device)
+    # Diagnostic computed from exactly the learned memories, prior to any
+    # new reader training: ratio and demodulated subtraction identity.
+    with torch.no_grad():
+        actual_tau=frozen.writer(test[0][:min(128,len(test[0]))].to(device)).cpu().flatten(1)
+        q=torch.arange(4).repeat(len(actual_tau))
+        full_tau=actual_tau.repeat_interleave(4,dim=0)
+        bank=path_bank()
+        from probe_gate import phase_at_path
+        src=bank["source"][q,0]
+        end=bank["end"][q,0]
+        pre=bank["pre"][q,0:1]
+        post=bank["post"][q,0:1]
+        # Advanced index gathers question-selected routes.
+        pre=bank["pre"][q][:,0:1]
+        post=bank["post"][q][:,0:1]
+        first=phase_at_path(full_tau,pre)[:,0]
+        second=phase_at_path(full_tau,post)[:,0]
+        measured=first*second.conj()
+        ideal=torch.polar(torch.ones(len(q)),full_tau.gather(1,src[:,None])[:,0] - full_tau.gather(1,end[:,None])[:,0])
+        endpoint_max_error=float((measured-ideal).abs().max().item())
+        assert endpoint_max_error<1e-5,endpoint_max_error
+        port_std_by_index={str(p):float(full_tau[:,int(p)].std(unbiased=False)) for p in sorted(set(end.tolist()))}
     output={
-        "protocol":"frozen-port-gate-v3-pilot-v1",
+        "identity_verification":{
+            "sampled_queries":int(len(q)),
+            "max_abs_ratio_vs_endpoints_error":endpoint_max_error,
+            "port_phase_std_across_queries":port_std_by_index
+        },
+        "protocol":"interferometric-ratio-v3b-frozen-replication",
         "frozen_writer_checkpoint_seed":args.seed,
         "writer_frozen":True,
+        "new_arms":["interferometric_ratio","demodulated_difference"],
+        "ratio_identity":"z_phase_first*conj(z_shift_first) = exp(i*(tau_source - tau_port)); intermediate phases cancel",
+        "ratio_limitation":"ratio is relative source minus port phase, and paired arm measures K/2 source positions using K wave readings",
         "measurement_budget":"K=number of complex-valued scalar detector readings; paired arms spend 2 readings per tested path; padding is not a reading",
         "fixed_ports":[list(p) for p in PORTS],
         "phase_payload_bytes":64,

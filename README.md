@@ -1,3 +1,60 @@
+## v3b: Common-path phase cancellation — verified mechanism, conditional value (14 Oct 2026)
+
+**[Interferometry dashboard: real frozen checkpoint results](https://anttiluode.github.io/SihtiGrapImageModel/interferometry.html)** · [Frozen v3b protocol](INTERFEROMETRY_PROTOCOL.md)
+
+We independently ran both existing frozen 64-byte writers with a new
+two-shot interferometric readout:
+
+```text
+z1 = exp(i*(tau(source) + sum(tau(intermediate))))
+z2 = exp(i*(sum(tau(intermediate)) + tau(port)))
+z1*conj(z2) = exp(i*(tau(source) - tau(port)))
+```
+
+The **common-path phase cancels exactly**, checked numerically to
+<1.1e-6 on actual frozen learned delay maps, and confirmed invariant
+when intermediate phase values are deliberately changed. Ordinary
+subtraction `z1-z2` preserves the common unknown rotation; the
+demodulated subtraction `(z1-z2)*conj(z2)` restores the ratio
+(up to subtracting 1).
+
+However, the stronger **classification prediction failed**:
+the ratio does not reach direct local performance on both writers.
+All results below are held-out accuracy at K=2 actual complex
+detector measurements per question, 2,048 questions/checkpoint.
+
+| K=2 readout | Seed 41 | Seed 97 |
+| --- | ---: | ---: |
+| Both full raw orders | 78.37% | 98.73% |
+| Explicit conjugate ratio | **59.23%** | **98.58%** |
+| Uncalibrated subtraction | 71.78% | 72.95% |
+| Direct phase from **same single source coordinate** | 62.74% | 99.95% |
+| Direct phase from **two** addressed source coordinates | 78.91% | 100.00% |
+
+**Interpretation:** seed 97's interrogated source site already stores a
+near-perfect label signal; seed 41's same probe source site is much
+less informative. The ratio cannot create source signal. Moreover,
+it returns *source minus variable port phase* (port variability is
+nonzero), not absolute source phase. The complete raw pair can retain
+task-relevant intermediate phases that the ratio cancels.
+
+This is an exact and useful **relative-phase interferometric
+measurement identity**, not a novel mathematical theorem or proof of
+myelin/dendrite wave physics. The finite-path model is ideal unitary
+propagation, and the trained writer is a supervised convolutional
+image code. A single ratio uses **two sensor readings per one source
+position**, whereas the two-sample direct-access control reads two
+source positions; the new matched-source control fixes that
+important source-count mismatch but uses privileged addressed access.
+
+Original v3 results stay intact at
+[results/restricted_ports/](results/restricted_ports/).
+New [seed 41](results/interferometry/seed41.json) and
+[seed 97](results/interferometry/seed97.json) numerical receipts,
+including K=2,4,8, are preserved separately.
+
+---
+
 ## Frozen v3 restricted-port test — measured results (October 14, 2026)
 
 **[Interactive results dashboard: question-directed probes against stronger controls](https://anttiluode.github.io/SihtiGrapImageModel/restricted_ports.html)** · [Frozen test specification](FROZEN_PORT_PROTOCOL.md)
