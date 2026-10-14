@@ -9,7 +9,7 @@
 </style>
 </head>
 <body><main>
-<nav class="nav"><strong>SIHTI / EXPERIMENTAL ARCHIVE</strong><span><a href="speedzones.html">Phase-wake v2</a> · <a href="index.html">v1</a> · <a href="https://github.com/anttiluode/SihtiGrapImageModel">GitHub ↗</a></span></nav>
+<nav class="nav"><strong>SIHTI / EXPERIMENTAL ARCHIVE</strong><span><a href="interferometry.html">Interferometry v3b ↗</a> · <a href="speedzones.html">Phase-wake v2</a> · <a href="index.html">v1</a> · <a href="https://github.com/anttiluode/SihtiGrapImageModel">GitHub ↗</a></span></nav>
 <section style="margin:60px 0 36px"><div class="eyebrow">V3 PILOT · FROZEN CHECKPOINTS · 14 OCTOBER 2026</div><h1>Can a question <em>steer a memory probe?</em></h1>
 <p class="intro">The two 64-byte writers are frozen. A question launches a unitary point wave into the learned phase medium. Twelve phase-and-shift steps guide it to one of two fixed detector ports. How many scalar measurements are needed to answer?</p></section>
 <section class="stats"><div class="stat"><small>Frozen visual memory</small><strong>64 bytes</strong><small>8×8 phase angles; each stored as uint8</small></div><div class="stat"><small>Fixed detector ports</small><strong>2</strong><small>At (0,0) and (0,4), no moving detector</small></div><div class="stat"><small>Held-out queries per seed</small><strong>2,048</strong><small>512 independently generated scenes × 4 questions</small></div></section>
@@ -19,6 +19,17 @@
 <h3>Per-seed held-out accuracy</h3><div class="scroll"><table class="data-table"><thead><tr><th>Reader</th><th>Seed 41</th><th>Seed 97</th><th>Mean</th></tr></thead><tbody id="scoreRows"><tr><td colspan="4">Loading…</td></tr></tbody></table></div>
 <p class="fine">The bars encode accuracy on a 50–100% linear scale for visual separation; exact numbers and errors are in the published receipts.</p></section>
 <section class="panel"><h2>The gate result</h2><div class="callout"><strong>Question-dependent access helps. Operator-order advantage remains unproven.</strong></div><p>The question-directed path sees the relevant region. Fixed paths see all regions regardless of the question, and fixed passive ports see only two untransported sites. At four measurements, targeted wave reads average <strong>93.58%</strong>, versus <strong>65.31%</strong> for question-independent routes. However, four direct local phase samples average <strong>99.02%</strong>.</p><p>The complex differences of the two phase/shift orders perform relatively poorly. The raw paired order measurements can be much more informative; particularly, with two shots and frozen seed 97, paired orders reach <strong>98.73%</strong>. This effect is not matched by seed 41, and reading phase directly still wins.</p></section>
+<section class="panel"><h2>New: common-path phase cancellation</h2>
+<p><strong>The exact endpoint ratio is real, but it is not universally a better reader.</strong>
+For a matched 12-step path, measuring phase→shift and shift→phase yields
+<code>z1×conj(z2) = exp(i×(phase(source) − phase(port)))</code>.
+Intermediate contributions cancel algebraically. The new v3b frozen-checkpoint
+test shows <strong>98.58%</strong> with two readings on seed 97, but only
+<strong>59.23%</strong> on seed 41. Its identical source-site direct control
+scores 99.95% and 62.74%, respectively; the chosen source matters.
+The raw paired response scores 98.73% and 78.37%: shared-path phase
+can also contain useful information rather than only nuisance.
+<a href="interferometry.html">Explore the new controlled ratio experiment →</a></p></section>
 <section class="panel"><h2>What is actually measured</h2><div class="scroll"><table class="data-table"><thead><tr><th>Reader</th><th>What it receives</th></tr></thead><tbody>
 <tr><td>Active phase→shift</td><td>K target-selected point waves measured at two ports after 12 steps</td></tr>
 <tr><td>Active shift→phase</td><td>Same paths, reverse local operator order</td></tr>
