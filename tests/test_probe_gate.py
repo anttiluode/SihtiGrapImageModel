@@ -50,3 +50,54 @@ def test_all_labels_for_each_scene_and_expansion():
     assert mem.shape==(24,1,8,8)
     assert q.tolist()==[0,1,2,3]*6
     assert a.tolist()==y.reshape(-1).tolist()
+
+
+def test_interferometric_endpoint_identity_and_clutter_invariance():
+    from probe_gate import phase_at_path, path_bank
+    torch.manual_seed(31415)
+    bank=path_bank()
+    tau=torch.randn(7,64)*.35
+    for q in range(4):
+        pre=bank["pre"][q,:4][None].expand(len(tau),-1,-1)
+        post=bank["post"][q,:4][None].expand(len(tau),-1,-1)
+        z1=phase_at_path(tau,pre)
+        z2=phase_at_path(tau,post)
+        ratio=z1*z2.conj()
+        source=bank["source"][q,:4]
+        port=bank["end"][q,:4]
+        expected=torch.polar(torch.ones_like(ratio.real),tau[:,source]-tau[:,port])
+        assert torch.allclose(ratio,expected,atol=3e-6)
+
+        for path_ix in range(4):
+            # Change only *intermediate* cells, never source or port.
+            source_idx=int(source[path_ix])
+            port_idx=int(port[path_ix])
+            mask=set(pre[0,path_ix,1:].tolist())
+            mask.update(post[0,path_ix,:-1].tolist())
+            mask.discard(source_idx)
+            mask.discard(port_idx)
+            assert mask, "Need at least one genuinely intermediate site"
+            mixed=tau.clone()
+            for pos in mask:
+                mixed[:,pos]+=torch.randn(len(tau))*.45
+            w1=phase_at_path(mixed,pre[:,path_ix:path_ix+1])[:,0]
+            w2=phase_at_path(mixed,post[:,path_ix:path_ix+1])[:,0]
+            assert torch.allclose(
+                w1*w2.conj(),ratio[:,path_ix],atol=3e-6
+            )
+            # A subtraction is sensitive to a common-path phase rotation.
+            assert ((w1-w2)-(z1[:,path_ix]-z2[:,path_ix])).abs().mean()>.001
+
+
+def test_ratio_and_demodulation_equal_up_to_one_complex_offset():
+    from probe_gate import observed_features
+    t=torch.randn(5,1,8,8)*.3
+    q=torch.tensor([0,1,2,3,0])
+    for k in (2,4,8):
+        f=observed_features(t,q,k)
+        r=f["interferometric_ratio"][:,:k].view(len(q),k//2,2)
+        d=f["demodulated_difference"][:,:k].view(len(q),k//2,2)
+        assert torch.allclose(d[:,:,0],r[:,:,0]-1,atol=2e-6)
+        assert torch.allclose(d[:,:,1],r[:,:,1],atol=2e-6)
+        assert f["interferometric_ratio"].shape==(len(q),2*k)
+        assert torch.all(f["interferometric_ratio"][:,k:]==0)
