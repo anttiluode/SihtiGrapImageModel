@@ -5,6 +5,8 @@ on:
     paths:
       - 'probe_gate.py'
       - 'train_probe_gate.py'
+      - 'summarize_ratio.py'
+      - 'INTERFEROMETRY_PROTOCOL.md'
       - 'tests/test_probe_gate.py'
       - '.github/workflows/ratio-v3b.yml'
   workflow_dispatch:
