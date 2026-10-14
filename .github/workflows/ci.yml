@@ -21,5 +21,7 @@ jobs:
           pip install torch --index-url https://download.pytorch.org/whl/cpu
       - name: Test
         run: pytest -q
+      - name: Check browser JavaScript syntax
+        run: node --check app.js
       - name: One-step end-to-end smoke
         run: python train.py --steps 1 --train-count 24 --val-count 16 --test-count 16 --batch-size 8 --device cpu --out /tmp/smoke.json
