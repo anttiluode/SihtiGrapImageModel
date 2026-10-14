@@ -1,0 +1,54 @@
+name: Frozen interferometric ratio replication
+on:
+  push:
+    branches: [experiment/interferometric-ratio-v3b]
+    paths:
+      - 'probe_gate.py'
+      - 'train_probe_gate.py'
+      - 'tests/test_probe_gate.py'
+      - '.github/workflows/ratio-v3b.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ratio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU dependencies
+        run: |
+          pip install numpy pytest
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Verify exact telescoping identity and clutter cancellation
+        run: pytest -q tests/test_probe_gate.py
+      - name: Frozen writer 41 ratio / subtraction / paired control
+        run: |
+          python train_probe_gate.py --seed 41 --steps 480 --device cpu --out results/interferometry/seed41.json > /tmp/ratio41.log
+          tail -n 8 /tmp/ratio41.log
+      - name: Frozen writer 97 ratio / subtraction / paired control
+        run: |
+          python train_probe_gate.py --seed 97 --steps 480 --device cpu --out results/interferometry/seed97.json > /tmp/ratio97.log
+          tail -n 8 /tmp/ratio97.log
+      - name: Summarize original and new arms without selecting winners
+        run: python summarize_ratio.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frozen-ratio-receipts
+          path: results/interferometry/
+          retention-days: 60
+      - name: Commit untouched receipts to branch
+        if: success() && github.ref == 'refs/heads/experiment/interferometric-ratio-v3b'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f results/interferometry/*.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record actual frozen-checkpoint interferometry gate'
+            git fetch origin experiment/interferometric-ratio-v3b
+            git rebase origin/experiment/interferometric-ratio-v3b
+            git push origin HEAD:experiment/interferometric-ratio-v3b
+          fi
