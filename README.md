@@ -1,3 +1,40 @@
+## Actual checkpoint inspection: learned 64-byte maps (October 14, 2026)
+
+The **saved** `phase_wake_seed41.pt` and `phase_wake_seed97.pt`
+models have now been loaded and inspected, separately from the website's
+hand-built analytic phase generator. We ran a previously unused, fixed
+set of 256 synthetic 32×32 images through each frozen writer. For every
+image, we changed exactly the four RGB pixels of one quadrant's 2×2
+colored mark and kept all other pixels identical, repeated for all
+four quadrants.
+
+| Measured quantity | Seed 41 | Seed 97 |
+| --- | ---: | ---: |
+| Phase bytes changed per mark flip (average) | 12.72 / 64 | 12.75 / 64 |
+| Magnitude of byte changes **inside changed quadrant** | 98.74% | 99.01% |
+| Counterfactual queried mark accuracy, all 6 informative heads | 100% | 100% |
+| Other quadrant predictions unchanged, direct-phase reader | 99.967% | 100% |
+| Distinct byte values seen over 256 scenes | 243 / 256 | 239 / 256 |
+| Pooled byte-value entropy (NOT image-memory capacity) | 7.79 bits | 7.67 bits |
+
+The same-image spatial correlation **between the two trained phase
+maps** averaged −0.208, showing their exact coding patterns differ;
+it is **not** proof of an intrinsic geometric coordinate system.
+
+**[View seed 41 learned maps and per-quadrant interventions](checkpoint_inspection/seed41.html)** ·
+**[View seed 97 maps](checkpoint_inspection/seed97.html)** ·
+**[Full report JSON](checkpoint_inspection/summary.json)** ·
+**[Reproducible inspector](inspect_checkpoint.py)**
+
+**Limits:** the writer is convolutional, so local counterfactual
+responses are encouraged by its finite receptive field; the observation
+does **not** prove that a phase-speed medium, myelin, or an actively
+chosen operator path was discovered. All six heads can decode these
+patterns. Two models' differences need additional tests before
+interpreting their phase coordinate choices physically.
+
+---
+
 ## Phase-wake v2 — speed-zone experiment (new)
 
 **[Open the phase-wake interactive laboratory](https://anttiluode.github.io/SihtiGrapImageModel/speedzones.html)** · **[Read the frozen v2 protocol](SPEEDZONE_PROTOCOL.md)**
