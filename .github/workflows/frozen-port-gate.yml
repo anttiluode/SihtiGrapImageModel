@@ -25,11 +25,11 @@ jobs:
           pip install torch --index-url https://download.pytorch.org/whl/cpu
       - name: Verify exact unitary path sensing and all labels
         run: pytest -q tests/test_probe_gate.py
-      - name: Seed 41: frozen writer, 2/4/8 shots, 2 read ports
+      - name: 'Seed 41: frozen writer, 2/4/8 shots, 2 read ports'
         run: |
           python train_probe_gate.py --seed 41 --steps 480 --device cpu --out results/restricted_ports/seed41.json > /tmp/port41.log
           tail -n 10 /tmp/port41.log
-      - name: Seed 97: independent frozen writer, identical scenes and probes
+      - name: 'Seed 97: independent frozen writer, identical scenes and probes'
         run: |
           python train_probe_gate.py --seed 97 --steps 480 --device cpu --out results/restricted_ports/seed97.json > /tmp/port97.log
           tail -n 10 /tmp/port97.log
