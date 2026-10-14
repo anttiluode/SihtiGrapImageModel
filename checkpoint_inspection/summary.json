@@ -1,0 +1,71 @@
+{
+  "protocol": "checkpoint inspection v1; frozen weights, no training",
+  "common_independent_scene_seed": 20261014,
+  "scenes": 256,
+  "seeds": {
+    "41": {
+      "phase_statistics": {
+        "min_rad": -1.1717647314071655,
+        "max_rad": 1.1058824062347412,
+        "mean_rad": -0.14371895790100098,
+        "std_rad": 0.591578483581543,
+        "unique_byte_values_across_all_scenes": 243,
+        "pooled_byte_entropy_bits": 7.793689793486385,
+        "fraction_bytes_near_0_or_255": 0.0,
+        "mean_between_scene_byte_std_per_cell": 58.20360565185547,
+        "max_between_scene_byte_std_per_cell": 87.80335998535156
+      },
+      "mean_changed_phase_bytes_per_mark_flip": 12.7216796875,
+      "mean_fraction_effect_inside_changed_quadrant": 0.9873843342065811,
+      "counterfactual_correct_after_flip": {
+        "commutator": 1.0,
+        "ordered_pair": 1.0,
+        "phase_gradient": 1.0,
+        "coherent_mean": 1.0,
+        "direct_phase": 1.0,
+        "amplitude_code": 1.0
+      },
+      "other_quadrant_answers_stable": {
+        "commutator": 0.9990234375,
+        "ordered_pair": 1.0,
+        "phase_gradient": 0.9993489583333333,
+        "coherent_mean": 1.0,
+        "direct_phase": 0.9996744791666666,
+        "amplitude_code": 1.0
+      }
+    },
+    "97": {
+      "phase_statistics": {
+        "min_rad": -1.1247059106826782,
+        "max_rad": 1.1247059106826782,
+        "mean_rad": -0.07916013896465302,
+        "std_rad": 0.5154834985733032,
+        "unique_byte_values_across_all_scenes": 239,
+        "pooled_byte_entropy_bits": 7.667708908343801,
+        "fraction_bytes_near_0_or_255": 0.0,
+        "mean_between_scene_byte_std_per_cell": 49.11701965332031,
+        "max_between_scene_byte_std_per_cell": 83.0472183227539
+      },
+      "mean_changed_phase_bytes_per_mark_flip": 12.7548828125,
+      "mean_fraction_effect_inside_changed_quadrant": 0.9901232570409775,
+      "counterfactual_correct_after_flip": {
+        "commutator": 1.0,
+        "ordered_pair": 1.0,
+        "phase_gradient": 1.0,
+        "coherent_mean": 1.0,
+        "direct_phase": 1.0,
+        "amplitude_code": 1.0
+      },
+      "other_quadrant_answers_stable": {
+        "commutator": 1.0,
+        "ordered_pair": 1.0,
+        "phase_gradient": 1.0,
+        "coherent_mean": 1.0,
+        "direct_phase": 1.0,
+        "amplitude_code": 1.0
+      }
+    }
+  },
+  "same_scene_cross_seed_spatial_map_correlation_mean": -0.20810759825226421,
+  "same_scene_cross_seed_spatial_map_correlation_std": 0.050477517650969625
+}
