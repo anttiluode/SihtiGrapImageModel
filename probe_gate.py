@@ -24,6 +24,8 @@ ARMS=(
     "active_shift_then_phase",
     "paired_orders",
     "order_difference",
+    "interferometric_ratio",
+    "demodulated_difference",
     "fixed_routes",
     "direct_local_phase",
     "direct_local_amplitude",
@@ -135,9 +137,17 @@ def observed_features(tau,q,budget):
     pair_count=budget//2
     raw_pair=torch.stack([first[:,:pair_count],second[:,:pair_count]],dim=-1).flatten(1)
     delta=first[:,:pair_count]-second[:,:pair_count]
+    # Paired orderings measure identical intermediate cells, except
+    # phase-then-shift includes source and shift-then-phase includes port.
+    # Multiplying by conj(second) demodulates the common phase.
+    ratio=first[:,:pair_count]*second[:,:pair_count].conj()
+    # Equivalent representation: (first-second)*conj(second) = ratio-1.
+    demodulated=delta*second[:,:pair_count].conj()
     # Need equal number of returned floats but only budget/2 complex
     # derived differences. The budget pays for both measurements.
     diff_feats=torch.cat([complex_as_reals(delta),torch.zeros_like(complex_as_reals(delta))],dim=1)
+    ratio_feats=torch.cat([complex_as_reals(ratio),torch.zeros_like(complex_as_reals(ratio))],dim=1)
+    demod_feats=torch.cat([complex_as_reals(demodulated),torch.zeros_like(complex_as_reals(demodulated))],dim=1)
 
     fixed_idx=paths["pre"][torch.arange(budget)%4,torch.arange(budget)].to(tau.device)
     fixed_idx=fixed_idx[None].expand(len(tau),-1,-1)
@@ -155,6 +165,8 @@ def observed_features(tau,q,budget):
         "active_shift_then_phase":complex_as_reals(second),
         "paired_orders":complex_as_reals(raw_pair),
         "order_difference":diff_feats,
+        "interferometric_ratio":ratio_feats,
+        "demodulated_difference":demod_feats,
         "fixed_routes":complex_as_reals(fixed),
         "direct_local_phase":complex_as_reals(direct),
         "direct_local_amplitude":torch.stack([amp,torch.zeros_like(amp)],-1).flatten(1),
