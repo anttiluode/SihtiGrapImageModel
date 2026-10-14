@@ -4,7 +4,7 @@ from pathlib import Path
 folder=Path("results/interferometry")
 data=[json.loads((folder/f"seed{s}.json").read_text()) for s in (41,97)]
 arms=("paired_orders","order_difference","interferometric_ratio",
-      "demodulated_difference","direct_local_phase",
+      "demodulated_difference","direct_matched_sources","direct_local_phase",
       "active_phase_then_shift","active_shift_then_phase","fixed_routes")
 print("INTERFEROMETRY V3B RECEIPTS / FROZEN 64-BYTE WRITERS")
 for x in data:
