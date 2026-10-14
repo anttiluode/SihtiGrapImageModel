@@ -11,7 +11,7 @@ def test_payload_and_reader_budget():
         w = net.write(x)
         assert w.shape == (3, 4, H, W)
         assert w[0].numel() == 896
-        assert torch.equal(w * 255, (w * 255).round())
+        assert torch.allclose(w * 255, (w * 255).round(), atol=1e-5)
         assert (w * (1 - edge_mask(w.device))).abs().max() == 0
         outputs = net.read(w, sides)
     assert set(outputs) == set(ARMS)

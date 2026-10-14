@@ -111,7 +111,7 @@ def run(args):
         x = test[0][:1].to(device)
         payload = bytes_for_one_memory(net.write(x))
         assert payload.shape == (1, 4, H, W)
-        assert torch.equal(payload, payload.round())
+        assert payload.dtype == torch.uint8
     reader_params = {a: sum(p.numel() for p in net.readers[a].parameters())
                      for a in ARMS}
     assert len(set(reader_params.values())) == 1
