@@ -26,6 +26,7 @@ ARMS=(
     "order_difference",
     "interferometric_ratio",
     "demodulated_difference",
+    "direct_matched_sources",
     "fixed_routes",
     "direct_local_phase",
     "direct_local_amplitude",
@@ -155,6 +156,13 @@ def observed_features(tau,q,budget):
     selected_sources=gather_query_routes(paths["source"],q)[:,:budget]
     local=torch.gather(tau,1,selected_sources)
     direct=torch.polar(torch.ones_like(local),local)
+    # Strong diagnostic: directly access EXACTLY the same K/2 launch
+    # locations observed by K-readout paired-order arms. This costs
+    # only K/2 privileged direct phase readings (padded to 2*K floats);
+    # not a same-sensor-interface benchmark.
+    matched_direct=direct[:,:pair_count]
+    matched_direct_feats=torch.cat([complex_as_reals(matched_direct),
+                                    torch.zeros_like(complex_as_reals(matched_direct))],dim=1)
     amp=(local/1.2+1)*.5
 
     ports=torch.tensor([PORTS[k%2][0]*GRID+PORTS[k%2][1] for k in range(budget)],device=tau.device)
@@ -167,6 +175,7 @@ def observed_features(tau,q,budget):
         "order_difference":diff_feats,
         "interferometric_ratio":ratio_feats,
         "demodulated_difference":demod_feats,
+        "direct_matched_sources":matched_direct_feats,
         "fixed_routes":complex_as_reals(fixed),
         "direct_local_phase":complex_as_reals(direct),
         "direct_local_amplitude":torch.stack([amp,torch.zeros_like(amp)],-1).flatten(1),
