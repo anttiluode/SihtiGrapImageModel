@@ -1,0 +1,56 @@
+name: Frozen v3 restricted-port gate
+on:
+  push:
+    branches: [experiment/frozen-restricted-ports-v3]
+    paths:
+      - 'probe_gate.py'
+      - 'train_probe_gate.py'
+      - 'tests/test_probe_gate.py'
+      - '.github/workflows/frozen-port-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU dependencies
+        run: |
+          pip install numpy pytest
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Verify exact unitary path sensing and all labels
+        run: pytest -q tests/test_probe_gate.py
+      - name: 'Seed 41: frozen writer, 2/4/8 shots, 2 read ports'
+        run: |
+          python train_probe_gate.py --seed 41 --steps 480 --device cpu --out results/restricted_ports/seed41.json > /tmp/port41.log
+          tail -n 10 /tmp/port41.log
+      - name: 'Seed 97: independent frozen writer, identical scenes and probes'
+        run: |
+          python train_probe_gate.py --seed 97 --steps 480 --device cpu --out results/restricted_ports/seed97.json > /tmp/port97.log
+          tail -n 10 /tmp/port97.log
+      - name: Print and cross-check results
+        run: |
+          python summarize_probe_gate.py
+      - name: Upload receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frozen-port-gate-receipts
+          path: results/restricted_ports/
+          retention-days: 60
+      - name: Persist numerical evidence on the branch
+        if: success() && github.ref == 'refs/heads/experiment/frozen-restricted-ports-v3'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f results/restricted_ports/*.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record frozen-writer restricted-port results'
+            git fetch origin experiment/frozen-restricted-ports-v3
+            git rebase origin/experiment/frozen-restricted-ports-v3
+            git push origin HEAD:experiment/frozen-restricted-ports-v3
+          fi

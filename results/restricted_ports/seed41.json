@@ -1,0 +1,303 @@
+{
+  "protocol": "frozen-port-gate-v3-pilot-v1",
+  "frozen_writer_checkpoint_seed": 41,
+  "writer_frozen": true,
+  "measurement_budget": "K=number of complex-valued scalar detector readings; paired arms spend 2 readings per tested path; padding is not a reading",
+  "fixed_ports": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "phase_payload_bytes": 64,
+  "grid": [
+    8,
+    8
+  ],
+  "propagation_steps_per_shot": 12,
+  "train_scenes": 1024,
+  "val_scenes": 256,
+  "test_scenes": 512,
+  "test_queries": 2048,
+  "split_seeds": [
+    83611,
+    83612,
+    83613
+  ],
+  "trainable_writer_parameters": 0,
+  "results_by_budget": {
+    "2": {
+      "readout_parameters_per_arm": 530,
+      "selected_step": 440,
+      "validation_joint_loss": 0.5254270248115063,
+      "validation": {
+        "active_phase_then_shift": {
+          "accuracy": 0.7294921875,
+          "errors": 277,
+          "cross_entropy": 0.5042539238929749
+        },
+        "active_shift_then_phase": {
+          "accuracy": 0.7900390625,
+          "errors": 215,
+          "cross_entropy": 0.4463058412075043
+        },
+        "paired_orders": {
+          "accuracy": 0.783203125,
+          "errors": 222,
+          "cross_entropy": 0.44165292382240295
+        },
+        "order_difference": {
+          "accuracy": 0.7109375,
+          "errors": 296,
+          "cross_entropy": 0.5204732418060303
+        },
+        "fixed_routes": {
+          "accuracy": 0.5380859375,
+          "errors": 473,
+          "cross_entropy": 0.6834611296653748
+        },
+        "direct_local_phase": {
+          "accuracy": 0.775390625,
+          "errors": 230,
+          "cross_entropy": 0.4883817732334137
+        },
+        "direct_local_amplitude": {
+          "accuracy": 0.7412109375,
+          "errors": 265,
+          "cross_entropy": 0.5165335536003113
+        },
+        "passive_ports": {
+          "accuracy": 0.609375,
+          "errors": 400,
+          "cross_entropy": 0.6023538112640381
+        }
+      },
+      "test": {
+        "active_phase_then_shift": {
+          "accuracy": 0.74560546875,
+          "errors": 521,
+          "cross_entropy": 0.47483029961586
+        },
+        "active_shift_then_phase": {
+          "accuracy": 0.77734375,
+          "errors": 456,
+          "cross_entropy": 0.4479559659957886
+        },
+        "paired_orders": {
+          "accuracy": 0.78125,
+          "errors": 448,
+          "cross_entropy": 0.4570678472518921
+        },
+        "order_difference": {
+          "accuracy": 0.7177734375,
+          "errors": 578,
+          "cross_entropy": 0.5278880000114441
+        },
+        "fixed_routes": {
+          "accuracy": 0.55322265625,
+          "errors": 915,
+          "cross_entropy": 0.6774606704711914
+        },
+        "direct_local_phase": {
+          "accuracy": 0.80029296875,
+          "errors": 409,
+          "cross_entropy": 0.456344872713089
+        },
+        "direct_local_amplitude": {
+          "accuracy": 0.76611328125,
+          "errors": 479,
+          "cross_entropy": 0.48508772253990173
+        },
+        "passive_ports": {
+          "accuracy": 0.60595703125,
+          "errors": 807,
+          "cross_entropy": 0.601173460483551
+        }
+      }
+    },
+    "4": {
+      "readout_parameters_per_arm": 722,
+      "selected_step": 480,
+      "validation_joint_loss": 0.3327880771830678,
+      "validation": {
+        "active_phase_then_shift": {
+          "accuracy": 0.8955078125,
+          "errors": 107,
+          "cross_entropy": 0.23590919375419617
+        },
+        "active_shift_then_phase": {
+          "accuracy": 0.9111328125,
+          "errors": 91,
+          "cross_entropy": 0.22805647552013397
+        },
+        "paired_orders": {
+          "accuracy": 0.85546875,
+          "errors": 148,
+          "cross_entropy": 0.3359729051589966
+        },
+        "order_difference": {
+          "accuracy": 0.7587890625,
+          "errors": 247,
+          "cross_entropy": 0.4861792325973511
+        },
+        "fixed_routes": {
+          "accuracy": 0.58984375,
+          "errors": 420,
+          "cross_entropy": 0.6723211407661438
+        },
+        "direct_local_phase": {
+          "accuracy": 0.9853515625,
+          "errors": 15,
+          "cross_entropy": 0.043634794652462006
+        },
+        "direct_local_amplitude": {
+          "accuracy": 0.984375,
+          "errors": 16,
+          "cross_entropy": 0.05567324161529541
+        },
+        "passive_ports": {
+          "accuracy": 0.591796875,
+          "errors": 418,
+          "cross_entropy": 0.6045576333999634
+        }
+      },
+      "test": {
+        "active_phase_then_shift": {
+          "accuracy": 0.91259765625,
+          "errors": 179,
+          "cross_entropy": 0.23334340751171112
+        },
+        "active_shift_then_phase": {
+          "accuracy": 0.912109375,
+          "errors": 180,
+          "cross_entropy": 0.2172338366508484
+        },
+        "paired_orders": {
+          "accuracy": 0.87158203125,
+          "errors": 263,
+          "cross_entropy": 0.3212060332298279
+        },
+        "order_difference": {
+          "accuracy": 0.74853515625,
+          "errors": 515,
+          "cross_entropy": 0.48986735939979553
+        },
+        "fixed_routes": {
+          "accuracy": 0.58837890625,
+          "errors": 843,
+          "cross_entropy": 0.670085072517395
+        },
+        "direct_local_phase": {
+          "accuracy": 0.98046875,
+          "errors": 40,
+          "cross_entropy": 0.05812111869454384
+        },
+        "direct_local_amplitude": {
+          "accuracy": 0.970703125,
+          "errors": 60,
+          "cross_entropy": 0.07629840821027756
+        },
+        "passive_ports": {
+          "accuracy": 0.611328125,
+          "errors": 796,
+          "cross_entropy": 0.602985143661499
+        }
+      }
+    },
+    "8": {
+      "readout_parameters_per_arm": 1106,
+      "selected_step": 480,
+      "validation_joint_loss": 0.20795653806999326,
+      "validation": {
+        "active_phase_then_shift": {
+          "accuracy": 0.9853515625,
+          "errors": 15,
+          "cross_entropy": 0.03943987935781479
+        },
+        "active_shift_then_phase": {
+          "accuracy": 0.9765625,
+          "errors": 24,
+          "cross_entropy": 0.058763161301612854
+        },
+        "paired_orders": {
+          "accuracy": 0.9765625,
+          "errors": 24,
+          "cross_entropy": 0.07451978325843811
+        },
+        "order_difference": {
+          "accuracy": 0.8701171875,
+          "errors": 133,
+          "cross_entropy": 0.32521772384643555
+        },
+        "fixed_routes": {
+          "accuracy": 0.7802734375,
+          "errors": 225,
+          "cross_entropy": 0.4675776958465576
+        },
+        "direct_local_phase": {
+          "accuracy": 0.9853515625,
+          "errors": 15,
+          "cross_entropy": 0.04106796160340309
+        },
+        "direct_local_amplitude": {
+          "accuracy": 0.98828125,
+          "errors": 12,
+          "cross_entropy": 0.04952424019575119
+        },
+        "passive_ports": {
+          "accuracy": 0.59765625,
+          "errors": 412,
+          "cross_entropy": 0.6075418591499329
+        }
+      },
+      "test": {
+        "active_phase_then_shift": {
+          "accuracy": 0.98095703125,
+          "errors": 39,
+          "cross_entropy": 0.06142604723572731
+        },
+        "active_shift_then_phase": {
+          "accuracy": 0.9794921875,
+          "errors": 42,
+          "cross_entropy": 0.055547140538692474
+        },
+        "paired_orders": {
+          "accuracy": 0.97216796875,
+          "errors": 57,
+          "cross_entropy": 0.0805383250117302
+        },
+        "order_difference": {
+          "accuracy": 0.8720703125,
+          "errors": 262,
+          "cross_entropy": 0.32703810930252075
+        },
+        "fixed_routes": {
+          "accuracy": 0.78955078125,
+          "errors": 431,
+          "cross_entropy": 0.4356178343296051
+        },
+        "direct_local_phase": {
+          "accuracy": 0.98046875,
+          "errors": 40,
+          "cross_entropy": 0.054120805114507675
+        },
+        "direct_local_amplitude": {
+          "accuracy": 0.974609375,
+          "errors": 52,
+          "cross_entropy": 0.06515925377607346
+        },
+        "passive_ports": {
+          "accuracy": 0.6044921875,
+          "errors": 810,
+          "cross_entropy": 0.604513943195343
+        }
+      }
+    }
+  },
+  "falsification_rule": "Claim a question-directed restricted-port advantage only if active probes beat BOTH fixed question-independent routes and equally budgeted addressable direct-phase probes on held-out queries on both frozen checkpoints. Order sensitivity requires a separate superiority versus same-budget reversed order and raw paired-order controls. Do not confuse target routing with a commutator information gain.",
+  "limits": "Only static four-mark synthetic scenes; 2 fixed complex ports; preplanned question-dependent routes, not feedback-adaptive or PDE wavefront propagation. The direct phase and amplitude arms have stronger addressable access than fixed port arms."
+}

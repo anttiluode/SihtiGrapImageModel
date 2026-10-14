@@ -1,3 +1,57 @@
+## Frozen v3 restricted-port test — measured results (October 14, 2026)
+
+**[Interactive results dashboard: question-directed probes against stronger controls](https://anttiluode.github.io/SihtiGrapImageModel/restricted_ports.html)** · [Frozen test specification](FROZEN_PORT_PROTOCOL.md)
+
+Both v2 phase writers (seeds 41 and 97) were **frozen** and evaluated on
+the same scene-disjoint 32×32 synthetic data splits, asking **all four
+quadrant questions for each scene** (2,048 held-out queries/seed).
+The 8×8 quantized writer state remains **64 bytes**. New learned
+**reader heads only** use K=2,4,8 complex sensor measurements per
+question. Each active shot is exactly 12 unitary phase-and-grid-shift
+steps, ending at one of **two fixed detector ports**.
+
+| Four complex measurements | Seed 41 | Seed 97 | Mean |
+| --- | ---: | ---: | ---: |
+| Question-directed wave (phase→shift) | 91.26% | 95.90% | **93.58%** |
+| Reversed phase/shift order | 91.21% | 95.41% | 93.31% |
+| Both raw operator orders, two paired paths | 87.16% | 98.93% | 93.04% |
+| Difference of order pairs | 74.85% | 81.49% | 78.17% |
+| Question-independent routes | 58.84% | 71.78% | 65.31% |
+| Addressable local phase (stronger interface) | 98.05% | 100.00% | **99.02%** |
+| Addressable local amplitude | 97.07% | 100.00% | 98.54% |
+| Passive phase at fixed ports | 61.13% | 59.52% | 60.33% |
+
+**Decision:** question-conditional spatial access wins against question-
+independent fixed-port routes, but the *predeclared stronger test fails*:
+active waves do not beat direct local phase sampling on both checkpoints
+at the same sensor-reading count. Nor is an operator-order advantage
+replicated across both writers. The order-*difference* generally loses.
+
+At eight shots, target-directed wave accuracy rises to 98.46%,
+question-independent wave routes to 80.03%, while local phase stays
+99.02%. An unusual result deserves follow-up: seed 97's paired-order
+head scores 98.73% from just two readings, compared with 78.12% for
+seed 41. Neither paired performance nor simple commutator alone
+licenses an information-creation claim.
+
+**Important fairness limits:** the active probe visits 12 phase locations
+per sensor reading, whereas the direct-local control reads one phase
+location; information-access and computation budgets are therefore
+not identical, even though the final number of complex-valued
+measurements is matched. Question-conditioned paths were constructed
+using target **quadrant geometry** without examining image labels;
+this is not a feedback-adaptive controller. Fixed ports cannot be
+relocated. No moving objects, histories, or physical speed PDE were
+tested. Details, failure conditions, and run configurations are in
+[FROZEN_PORT_PROTOCOL.md](FROZEN_PORT_PROTOCOL.md).
+
+[Real seed 41 measurements](results/restricted_ports/seed41.json) ·
+[Real seed 97 measurements](results/restricted_ports/seed97.json) ·
+[Benchmark implementation](train_probe_gate.py) ·
+[Physical path simulator and unit tests](probe_gate.py)
+
+---
+
 ## Actual checkpoint inspection: learned 64-byte maps (October 14, 2026)
 
 The **saved** `phase_wake_seed41.pt` and `phase_wake_seed97.pt`

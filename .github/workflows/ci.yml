@@ -25,6 +25,7 @@ jobs:
         run: |
           node --check app.js
           node --check phase_lab.js
+          node --check restricted_ports.js
       - name: Phase-wake one-step learning smoke
         run: python train_speedzones.py --steps 1 --train-count 24 --val-count 16 --test-count 16 --batch-size 8 --device cpu --out /tmp/phase-smoke.json
       - name: One-step end-to-end smoke
