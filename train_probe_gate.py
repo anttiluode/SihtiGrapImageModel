@@ -169,7 +169,7 @@ def parse():
     p.add_argument("--val-scenes",type=int,default=256)
     p.add_argument("--test-scenes",type=int,default=512)
     p.add_argument("--out",type=str,default="results/restricted_ports/seed41.json")
-    return p.parse()
+    return p.parse_args()
 
 
 if __name__=="__main__":run(parse())
