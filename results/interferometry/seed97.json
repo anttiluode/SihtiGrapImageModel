@@ -46,327 +46,357 @@
     "2": {
       "readout_parameters_per_arm": 530,
       "selected_step": 480,
-      "validation_joint_loss": 0.2699984439765103,
+      "validation_joint_loss": 0.24630120696118948,
       "validation": {
         "active_phase_then_shift": {
-          "accuracy": 0.8056640625,
-          "errors": 199,
-          "cross_entropy": 0.4364698827266693
+          "accuracy": 0.8125,
+          "errors": 192,
+          "cross_entropy": 0.43706342577934265
         },
         "active_shift_then_phase": {
-          "accuracy": 0.8251953125,
-          "errors": 179,
-          "cross_entropy": 0.4137684404850006
+          "accuracy": 0.8232421875,
+          "errors": 181,
+          "cross_entropy": 0.4166840612888336
         },
         "paired_orders": {
           "accuracy": 0.986328125,
           "errors": 14,
-          "cross_entropy": 0.037355899810791016
+          "cross_entropy": 0.03733948618173599
         },
         "order_difference": {
-          "accuracy": 0.7294921875,
-          "errors": 277,
-          "cross_entropy": 0.47595733404159546
+          "accuracy": 0.7314453125,
+          "errors": 275,
+          "cross_entropy": 0.47711071372032166
         },
         "interferometric_ratio": {
           "accuracy": 0.9873046875,
           "errors": 13,
-          "cross_entropy": 0.03940562903881073
+          "cross_entropy": 0.039123330265283585
         },
         "demodulated_difference": {
           "accuracy": 0.9873046875,
           "errors": 13,
-          "cross_entropy": 0.039137788116931915
+          "cross_entropy": 0.03914225846529007
+        },
+        "direct_matched_sources": {
+          "accuracy": 0.9990234375,
+          "errors": 1,
+          "cross_entropy": 0.003044012002646923
         },
         "fixed_routes": {
-          "accuracy": 0.58984375,
-          "errors": 420,
-          "cross_entropy": 0.6305323839187622
+          "accuracy": 0.5849609375,
+          "errors": 425,
+          "cross_entropy": 0.6303465962409973
         },
         "direct_local_phase": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.000587767455726862
+          "cross_entropy": 0.000687784980982542
         },
         "direct_local_amplitude": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0015431741485372186
+          "cross_entropy": 0.0013651297194883227
         },
         "passive_ports": {
-          "accuracy": 0.5859375,
-          "errors": 424,
-          "cross_entropy": 0.6252261400222778
+          "accuracy": 0.580078125,
+          "errors": 430,
+          "cross_entropy": 0.6274064779281616
         }
       },
       "test": {
         "active_phase_then_shift": {
-          "accuracy": 0.81201171875,
-          "errors": 385,
-          "cross_entropy": 0.41287916898727417
+          "accuracy": 0.8115234375,
+          "errors": 386,
+          "cross_entropy": 0.41009944677352905
         },
         "active_shift_then_phase": {
-          "accuracy": 0.80859375,
-          "errors": 392,
-          "cross_entropy": 0.40592649579048157
+          "accuracy": 0.81005859375,
+          "errors": 389,
+          "cross_entropy": 0.40573668479919434
         },
         "paired_orders": {
-          "accuracy": 0.98681640625,
-          "errors": 27,
-          "cross_entropy": 0.04003642499446869
+          "accuracy": 0.9873046875,
+          "errors": 26,
+          "cross_entropy": 0.04004129394888878
         },
         "order_difference": {
-          "accuracy": 0.7255859375,
-          "errors": 562,
-          "cross_entropy": 0.4886322617530823
+          "accuracy": 0.7294921875,
+          "errors": 554,
+          "cross_entropy": 0.48867589235305786
         },
         "interferometric_ratio": {
-          "accuracy": 0.9853515625,
-          "errors": 30,
-          "cross_entropy": 0.04725957289338112
+          "accuracy": 0.98583984375,
+          "errors": 29,
+          "cross_entropy": 0.046997275203466415
         },
         "demodulated_difference": {
           "accuracy": 0.986328125,
           "errors": 28,
-          "cross_entropy": 0.04580507427453995
+          "cross_entropy": 0.04588169604539871
+        },
+        "direct_matched_sources": {
+          "accuracy": 0.99951171875,
+          "errors": 1,
+          "cross_entropy": 0.002191165229305625
         },
         "fixed_routes": {
-          "accuracy": 0.61865234375,
-          "errors": 781,
-          "cross_entropy": 0.6247736215591431
+          "accuracy": 0.6279296875,
+          "errors": 762,
+          "cross_entropy": 0.6228144764900208
         },
         "direct_local_phase": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0005388433928601444
+          "cross_entropy": 0.000583907647524029
         },
         "direct_local_amplitude": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0013694886583834887
+          "cross_entropy": 0.0012412546202540398
         },
         "passive_ports": {
-          "accuracy": 0.6005859375,
-          "errors": 818,
-          "cross_entropy": 0.6169960498809814
+          "accuracy": 0.5927734375,
+          "errors": 834,
+          "cross_entropy": 0.6177995800971985
         }
       }
     },
     "4": {
       "readout_parameters_per_arm": 722,
       "selected_step": 440,
-      "validation_joint_loss": 0.18582739600678905,
+      "validation_joint_loss": 0.16854881363476373,
       "validation": {
         "active_phase_then_shift": {
-          "accuracy": 0.9609375,
-          "errors": 40,
-          "cross_entropy": 0.10983460396528244
+          "accuracy": 0.9599609375,
+          "errors": 41,
+          "cross_entropy": 0.11025454103946686
         },
         "active_shift_then_phase": {
-          "accuracy": 0.962890625,
-          "errors": 38,
-          "cross_entropy": 0.12275903671979904
+          "accuracy": 0.9638671875,
+          "errors": 37,
+          "cross_entropy": 0.11966410279273987
         },
         "paired_orders": {
-          "accuracy": 0.994140625,
-          "errors": 6,
-          "cross_entropy": 0.028722308576107025
+          "accuracy": 0.9931640625,
+          "errors": 7,
+          "cross_entropy": 0.027943016961216927
         },
         "order_difference": {
-          "accuracy": 0.818359375,
-          "errors": 186,
-          "cross_entropy": 0.3806616961956024
+          "accuracy": 0.8193359375,
+          "errors": 185,
+          "cross_entropy": 0.3789975345134735
         },
         "interferometric_ratio": {
           "accuracy": 0.9912109375,
           "errors": 9,
-          "cross_entropy": 0.03202706202864647
+          "cross_entropy": 0.03235732018947601
         },
         "demodulated_difference": {
           "accuracy": 0.9912109375,
           "errors": 9,
-          "cross_entropy": 0.033539459109306335
+          "cross_entropy": 0.03380217030644417
+        },
+        "direct_matched_sources": {
+          "accuracy": 1.0,
+          "errors": 0,
+          "cross_entropy": 0.0006577997119165957
         },
         "fixed_routes": {
-          "accuracy": 0.7197265625,
-          "errors": 287,
-          "cross_entropy": 0.5192189812660217
+          "accuracy": 0.7236328125,
+          "errors": 283,
+          "cross_entropy": 0.5169262886047363
         },
         "direct_local_phase": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0005177733255550265
+          "cross_entropy": 0.0004640627885237336
         },
         "direct_local_amplitude": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0013404791243374348
+          "cross_entropy": 0.0013988798018544912
         },
         "passive_ports": {
-          "accuracy": 0.583984375,
-          "errors": 426,
-          "cross_entropy": 0.6296525597572327
+          "accuracy": 0.580078125,
+          "errors": 430,
+          "cross_entropy": 0.6315712332725525
         }
       },
       "test": {
         "active_phase_then_shift": {
-          "accuracy": 0.9599609375,
-          "errors": 82,
-          "cross_entropy": 0.12535324692726135
+          "accuracy": 0.9619140625,
+          "errors": 78,
+          "cross_entropy": 0.12488500028848648
         },
         "active_shift_then_phase": {
-          "accuracy": 0.955078125,
-          "errors": 92,
-          "cross_entropy": 0.12365439534187317
+          "accuracy": 0.953125,
+          "errors": 96,
+          "cross_entropy": 0.12320757657289505
         },
         "paired_orders": {
           "accuracy": 0.98876953125,
           "errors": 23,
-          "cross_entropy": 0.02966413088142872
+          "cross_entropy": 0.02960079535841942
         },
         "order_difference": {
           "accuracy": 0.81005859375,
           "errors": 389,
-          "cross_entropy": 0.40878528356552124
+          "cross_entropy": 0.4089270830154419
         },
         "interferometric_ratio": {
-          "accuracy": 0.986328125,
-          "errors": 28,
-          "cross_entropy": 0.035706643015146255
+          "accuracy": 0.98583984375,
+          "errors": 29,
+          "cross_entropy": 0.03670907020568848
         },
         "demodulated_difference": {
-          "accuracy": 0.98828125,
-          "errors": 24,
-          "cross_entropy": 0.035367660224437714
+          "accuracy": 0.98779296875,
+          "errors": 25,
+          "cross_entropy": 0.035570114850997925
+        },
+        "direct_matched_sources": {
+          "accuracy": 1.0,
+          "errors": 0,
+          "cross_entropy": 0.0006202635122463107
         },
         "fixed_routes": {
-          "accuracy": 0.71484375,
-          "errors": 584,
-          "cross_entropy": 0.5418396592140198
+          "accuracy": 0.7138671875,
+          "errors": 586,
+          "cross_entropy": 0.543424665927887
         },
         "direct_local_phase": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0006090699462220073
+          "cross_entropy": 0.0005606509512290359
         },
         "direct_local_amplitude": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0013127296697348356
+          "cross_entropy": 0.0013644201681017876
         },
         "passive_ports": {
-          "accuracy": 0.59765625,
-          "errors": 824,
-          "cross_entropy": 0.6187645196914673
+          "accuracy": 0.59375,
+          "errors": 832,
+          "cross_entropy": 0.6190231442451477
         }
       }
     },
     "8": {
       "readout_parameters_per_arm": 1106,
       "selected_step": 480,
-      "validation_joint_loss": 0.13867290531634352,
+      "validation_joint_loss": 0.12780095532864585,
       "validation": {
         "active_phase_then_shift": {
-          "accuracy": 0.9931640625,
-          "errors": 7,
-          "cross_entropy": 0.027243761345744133
+          "accuracy": 0.994140625,
+          "errors": 6,
+          "cross_entropy": 0.028738966211676598
         },
         "active_shift_then_phase": {
-          "accuracy": 0.9873046875,
-          "errors": 13,
-          "cross_entropy": 0.034490037709474564
+          "accuracy": 0.984375,
+          "errors": 16,
+          "cross_entropy": 0.035700518637895584
         },
         "paired_orders": {
-          "accuracy": 0.9951171875,
-          "errors": 5,
-          "cross_entropy": 0.011602606624364853
-        },
-        "order_difference": {
-          "accuracy": 0.8701171875,
-          "errors": 133,
-          "cross_entropy": 0.28769099712371826
-        },
-        "interferometric_ratio": {
           "accuracy": 0.99609375,
           "errors": 4,
-          "cross_entropy": 0.01687535271048546
+          "cross_entropy": 0.01111807394772768
+        },
+        "order_difference": {
+          "accuracy": 0.876953125,
+          "errors": 126,
+          "cross_entropy": 0.2846004366874695
+        },
+        "interferometric_ratio": {
+          "accuracy": 0.9951171875,
+          "errors": 5,
+          "cross_entropy": 0.018022581934928894
         },
         "demodulated_difference": {
           "accuracy": 0.99609375,
           "errors": 4,
-          "cross_entropy": 0.019976692274212837
+          "cross_entropy": 0.019870655611157417
+        },
+        "direct_matched_sources": {
+          "accuracy": 1.0,
+          "errors": 0,
+          "cross_entropy": 0.0006189402774907649
         },
         "fixed_routes": {
-          "accuracy": 0.849609375,
-          "errors": 154,
-          "cross_entropy": 0.3591960370540619
+          "accuracy": 0.83984375,
+          "errors": 164,
+          "cross_entropy": 0.37961912155151367
         },
         "direct_local_phase": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.00033518491545692086
+          "cross_entropy": 0.0004344530461821705
         },
         "direct_local_amplitude": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0009390384657308459
+          "cross_entropy": 0.0008876344654709101
         },
         "passive_ports": {
-          "accuracy": 0.576171875,
-          "errors": 434,
-          "cross_entropy": 0.6283793449401855
+          "accuracy": 0.5849609375,
+          "errors": 425,
+          "cross_entropy": 0.6261991262435913
         }
       },
       "test": {
         "active_phase_then_shift": {
-          "accuracy": 0.986328125,
-          "errors": 28,
-          "cross_entropy": 0.03821772709488869
+          "accuracy": 0.98681640625,
+          "errors": 27,
+          "cross_entropy": 0.03944750130176544
         },
         "active_shift_then_phase": {
-          "accuracy": 0.98388671875,
-          "errors": 33,
-          "cross_entropy": 0.04337433725595474
+          "accuracy": 0.9833984375,
+          "errors": 34,
+          "cross_entropy": 0.04607848450541496
         },
         "paired_orders": {
-          "accuracy": 0.99658203125,
-          "errors": 7,
-          "cross_entropy": 0.012816397473216057
+          "accuracy": 0.99609375,
+          "errors": 8,
+          "cross_entropy": 0.0126320356503129
         },
         "order_difference": {
-          "accuracy": 0.8544921875,
-          "errors": 298,
-          "cross_entropy": 0.3413617014884949
+          "accuracy": 0.85693359375,
+          "errors": 293,
+          "cross_entropy": 0.3402140140533447
         },
         "interferometric_ratio": {
-          "accuracy": 0.99755859375,
-          "errors": 5,
-          "cross_entropy": 0.006230768281966448
+          "accuracy": 0.9970703125,
+          "errors": 6,
+          "cross_entropy": 0.006631780415773392
         },
         "demodulated_difference": {
           "accuracy": 0.99755859375,
           "errors": 5,
-          "cross_entropy": 0.0065285824239254
+          "cross_entropy": 0.006504443008452654
+        },
+        "direct_matched_sources": {
+          "accuracy": 1.0,
+          "errors": 0,
+          "cross_entropy": 0.0006343035493046045
         },
         "fixed_routes": {
-          "accuracy": 0.8232421875,
-          "errors": 362,
-          "cross_entropy": 0.3767670691013336
+          "accuracy": 0.81884765625,
+          "errors": 371,
+          "cross_entropy": 0.39107879996299744
         },
         "direct_local_phase": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.00037684731069020927
+          "cross_entropy": 0.0004533036844804883
         },
         "direct_local_amplitude": {
           "accuracy": 1.0,
           "errors": 0,
-          "cross_entropy": 0.0007891528075560927
+          "cross_entropy": 0.0007877355674281716
         },
         "passive_ports": {
-          "accuracy": 0.59423828125,
-          "errors": 831,
-          "cross_entropy": 0.6190465092658997
+          "accuracy": 0.6005859375,
+          "errors": 818,
+          "cross_entropy": 0.6183589100837708
         }
       }
     }
