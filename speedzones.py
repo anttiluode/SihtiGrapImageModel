@@ -98,17 +98,22 @@ def features(tau, target):
     mask = query_mask(target, tau.device)
     assert mask.shape == tau.shape
 
-    def pack(a, b, c, d):
-        return torch.cat([a, b, c, d, mask], dim=1)
+    def pack(*channels):
+        if len(channels) > 8:
+            raise ValueError("At most eight feature channels")
+        return torch.cat([*channels, *([zero] * (8 - len(channels))), mask], dim=1)
 
     return {
         "commutator": pack(cx.real, cx.imag, cy.real, cy.imag),
-        "ordered_pair": pack(ux.real, ux.imag, uy.real, uy.imag),
-        "phase_gradient": pack(gx, gy, zero, zero),
+        # Both orderings of Sx and U, and both orderings of Sy and U;
+        # never discard the raw responses before the paired baseline.
+        "ordered_pair": pack(ux.real, ux.imag, u.real, u.imag,
+                             uy.real, uy.imag, u.real, u.imag),
+        "phase_gradient": pack(gx, gy),
         "coherent_mean": pack(mx.real, mx.imag, my.real, my.imag),
-        "direct_phase": pack(u.real, u.imag, zero, zero),
-        "amplitude_code": pack((tau / MAX_PHASE + 1) / 2, zero, zero, zero),
-        "intensity_only": pack(u.abs().square(), zero, zero, zero),
+        "direct_phase": pack(u.real, u.imag),
+        "amplitude_code": pack((tau / MAX_PHASE + 1) / 2),
+        "intensity_only": pack(u.abs().square()),
     }
 
 
@@ -117,7 +122,7 @@ class Classifier(nn.Module):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Conv2d(5, 16, 3, padding=1), nn.GELU(),
+            nn.Conv2d(9, 16, 3, padding=1), nn.GELU(),
             nn.Conv2d(16, 16, 3, padding=1), nn.GELU(),
             nn.Flatten(), nn.Linear(16 * GRID_SIZE * GRID_SIZE, 2),
         )
